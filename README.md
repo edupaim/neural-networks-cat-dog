@@ -80,7 +80,7 @@ Test Accuracy: 0.5820000171661377
 Test Loss: 0.74488365650177
 ```
 
-![](mlp-cfmatrix.png)
+![](results/mlp-cfmatrix.png)
 
 ```
               precision    recall  f1-score   support
@@ -175,3 +175,84 @@ This function is called, passing some parameters to data augmentation as:
 | CNN            |   ![](results/cnn-acc-dataaug.png)   |   ![](results/cnn-loss-dataaug.png)   |
 | CNN2           |  ![](results/cnn2-acc-dataaug.png)   |  ![](results/cnn2-loss-dataaug.png)   |
 | CNN2 (DROPOUT) | ![](results/cnn2_dp-acc-dataaug.png) | ![](results/cnn2_dp-loss-dataaug.png) |
+
+### Results
+
+## MLP-DATAAUG
+
+```
+Test Accuracy: 0.6000000238418579
+Test Loss: 0.6639021635055542
+```
+
+![](results/mlp-cfmatrix-dataaug.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.48      0.54      0.51       500
+         DOG       0.48      0.42      0.45       500
+
+    accuracy                           0.48      1000
+   macro avg       0.48      0.48      0.48      1000
+weighted avg       0.48      0.48      0.48      1000
+```
+
+## CNN-DATAAUG
+
+```
+Test Accuracy: 0.7540000081062317
+Test Loss: 0.4956442713737488
+```
+
+![](results/cnn-cfmatrix-dataaug.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.49      0.46      0.48       500
+         DOG       0.49      0.52      0.51       500
+
+    accuracy                           0.49      1000
+   macro avg       0.49      0.49      0.49      1000
+weighted avg       0.49      0.49      0.49      1000
+```
+## CNN2-DATAAUG
+
+```
+Test Accuracy: 0.7559999823570251
+Test Loss: 0.49308863282203674
+```
+
+![](results/cnn2-cfmatrix-dataaug.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.48      0.48      0.48       500
+         DOG       0.48      0.48      0.48       500
+
+    accuracy                           0.48      1000
+   macro avg       0.48      0.48      0.48      1000
+weighted avg       0.48      0.48      0.48      1000
+```
+
+## CNN2_DP-DATAAUG
+
+```
+Test Accuracy: 0.6779999732971191
+Test Loss: 0.62696772813797
+```
+
+![](results/cnn2_dp-cfmatrix-dataaug.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.50      0.69      0.58       500
+         DOG       0.49      0.29      0.37       500
+
+    accuracy                           0.49      1000
+   macro avg       0.49      0.49      0.47      1000
+weighted avg       0.49      0.49      0.47      1000
+```
