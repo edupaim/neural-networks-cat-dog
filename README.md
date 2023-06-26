@@ -259,7 +259,7 @@ This function is called, passing some parameters to data augmentation as:
 
 ### Results
 
-## MLP-DATAAUG
+#### MLP-DATAAUG
 
 ```
 Test Accuracy: 0.6000000238418579
@@ -279,7 +279,7 @@ Test Loss: 0.6639021635055542
 weighted avg       0.48      0.48      0.48      1000
 ```
 
-## CNN-DATAAUG
+#### CNN-DATAAUG
 
 ```
 Test Accuracy: 0.7540000081062317
@@ -298,7 +298,7 @@ Test Loss: 0.4956442713737488
    macro avg       0.49      0.49      0.49      1000
 weighted avg       0.49      0.49      0.49      1000
 ```
-## CNN2-DATAAUG
+#### CNN2-DATAAUG
 
 ```
 Test Accuracy: 0.7559999823570251
@@ -318,7 +318,7 @@ Test Loss: 0.49308863282203674
 weighted avg       0.48      0.48      0.48      1000
 ```
 
-## CNN2_DP-DATAAUG
+#### CNN2_DP-DATAAUG
 
 ```
 Test Accuracy: 0.6779999732971191
