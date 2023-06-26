@@ -1,4 +1,4 @@
-# Learn Machine to differentiate dog and cat
+# Machine learning to differentiate dog and cat
 
 # Explicação (pt-br)
 
@@ -12,11 +12,11 @@ Esse dataset é dividido em uma coleção balanceada de 2000 imagens para treino
 
 Para o pré-processamento dos dados, foi utilizada a biblioteca Keras para carregar e redimensionar as imagens. 
 Para determinar o melhor parâmetro para o redimensionamento das imagens foi feita uma análise estatística básica no 
-conjunto de dados de imagens.
-No pré-processamento também é aplicada a técnica de normalização dos dados, dividindo os valores da intensidade dos 
-pixels por 255, para que o valor fique entre 0 e 1.
+conjunto de dados de imagens.  No pré-processamento também é aplicada a técnica de normalização dos dados,
+dividindo os valores da intensidade dos pixels por 255, para que o valor fique entre 0 e 1. Também é aplicado o embaralhamento
+dos dados para o treinamento.
 
-Também é aplicada a técnica de aumento de dados (data augmentation) para melhorar a capacidade do modelo generalisar 
+No experimento, também é aplicada a técnica de aumento de dados (data augmentation) para melhorar a capacidade do modelo generalisar 
 padrões. Para aplicar a técnica de aumento de dados, são passados alguns parâmetros para definir valores de rotação, 
 deslocamento horizontal e vertical, cisalhamento, zoom e espelhamento horizontal.
 
@@ -39,6 +39,9 @@ Logo será apresentado com detalhes a arquitetura mais completa (CNN2_DP).
 * Camada de Saída:
   * Última camada densa: Possui uma única unidade de saída com a função de ativação sigmoidal. Essa camada produz um valor entre 0 e 1, representando a probabilidade de uma imagem pertencer à classe-alvo.
 
+O treino é executado no projeto utilizando 50 épocas, e aplicando registrando funções como chamada de retorno para
+redução do aprendizagem no platô e parada precoce na falta da melhoria da métrica (val_loss).
+
 O projeto realiza a validação dos resultados usando a matriz de confusão e o relatório de classificação
 (classification report). As principais métricas analisadas no resultado são a acurácia e o f1-score.
 Pois, como o objetivo da aprendizagem não é minimizar o erro de classificação espécifico para alguma classe,
@@ -54,6 +57,9 @@ This dataset is stored as a cache at the root of the project directory.
 
 This dataset is already divided into a training and validation set. The training set has 2000 images of dogs and cats,
 divided in half. The validation set has 1000 images of dogs and cats, divided in half.
+
+Is applied the re-scale on `ImageDataGenerator` with `rescale=1. / 255`. And is applied the re-size (256x256) and shuffle
+on image iterators.
 
 ## Build Models
 
@@ -86,7 +92,7 @@ model_cnn = keras.Sequential([
 ])
 ```
 
-### CNN2
+### CNN2 (with batch normalization)
 
 ```
 model_cnn2 = keras.Sequential([
@@ -107,6 +113,51 @@ model_cnn2 = keras.Sequential([
     keras.layers.BatchNormalization(),
     keras.layers.Dense(1, activation='sigmoid')
 ])
+```
+
+### CNN2_DP (with batch normalization and dropout)
+
+```
+model_cnn2_dpout = keras.Sequential([
+    keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(img_size, img_size, 3)),
+    keras.layers.BatchNormalization(),
+    keras.layers.MaxPool2D((2, 2)),
+    keras.layers.Dropout(0.25),
+
+    keras.layers.Conv2D(32, (3, 3), activation='relu'),
+    keras.layers.BatchNormalization(),
+    keras.layers.MaxPool2D((2, 2)),
+    keras.layers.Dropout(0.25),
+
+    keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    keras.layers.BatchNormalization(),
+    keras.layers.MaxPool2D((2, 2)),
+    keras.layers.Dropout(0.25),
+
+    keras.layers.Flatten(),
+    keras.layers.Dense(512, activation='relu'),
+    keras.layers.BatchNormalization(),
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(1, activation='sigmoid')
+])
+```
+
+## Training
+
+Run with `50 epochs` and some callbacks to: reduce learning rate on plateau and stop early without increasing metric (val_loss).
+
+```
+early_stop = EarlyStopping(
+    patience=10,
+    verbose=1,
+)
+learning_rate_reduction = ReduceLROnPlateau(
+    monitor='val_accuracy',
+    patience=2,
+    verbose=1,
+    factor=0.5,
+    min_lr=0.00001
+)
 ```
 
 ### Training history
