@@ -65,11 +65,11 @@ model_cnn2 = keras.Sequential([
 
 ### Results
 
-| Model |        Accuracy        |          Loss           |
-|-------|:----------------------:|:-----------------------:|
-| MLP   | ![](pics/mlp-acc.png)  | ![](pics/mlp-loss.png)  |
-| CNN   | ![](pics/cnn-acc.png)  | ![](pics/cnn-loss.png)  |
-| CNN2  | ![](pics/cnn2-acc.png) | ![](pics/cnn2-loss.png) |
+| Model |         Accuracy          |            Loss            |
+|-------|:-------------------------:|:--------------------------:|
+| MLP   | ![](results/mlp-acc.png)  | ![](results/mlp-loss.png)  |
+| CNN   | ![](results/cnn-acc.png)  | ![](results/cnn-loss.png)  |
+| CNN2  | ![](results/cnn2-acc.png) | ![](results/cnn2-loss.png) |
 
 ## Data Augmentation
 
@@ -90,9 +90,9 @@ This function is called, passing some parameters to data augmentation as:
 
 ### Results with Data Augmentation
 
-| Model          |             Accuracy              |                Loss                | 
-|----------------|:---------------------------------:|:----------------------------------:|
-| MLP            |   ![](pics/mlp-acc-dataaug.png)   |   ![](pics/mlp-loss-dataaug.png)   |
-| CNN            |   ![](pics/cnn-acc-dataaug.png)   |   ![](pics/cnn-loss-dataaug.png)   |
-| CNN2           |  ![](pics/cnn2-acc-dataaug.png)   |  ![](pics/cnn2-loss-dataaug.png)   |
-| CNN2 (DROPOUT) | ![](pics/cnn2-dp-acc-dataaug.png) | ![](pics/cnn2-dp-loss-dataaug.png) |
+| Model          |               Accuracy               |                 Loss                  | 
+|----------------|:------------------------------------:|:-------------------------------------:|
+| MLP            |   ![](results/mlp-acc-dataaug.png)   |   ![](results/mlp-loss-dataaug.png)   |
+| CNN            |   ![](results/cnn-acc-dataaug.png)   |   ![](results/cnn-loss-dataaug.png)   |
+| CNN2           |  ![](results/cnn2-acc-dataaug.png)   |  ![](results/cnn2-loss-dataaug.png)   |
+| CNN2 (DROPOUT) | ![](results/cnn2_dp-acc-dataaug.png) | ![](results/cnn2_dp-loss-dataaug.png) |
