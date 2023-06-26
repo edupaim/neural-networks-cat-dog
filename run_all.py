@@ -34,9 +34,6 @@ batch_size = 20
 img_size = 128
 epochs = 50
 
-# data_aug_train = [False, True]
-# model_names = ["mlp", "cnn", "cnn2", "cnn2_dp"]
-
 for with_data_augmentation in data_aug_train:
     for model_name in model_names:
         print(model_name)
