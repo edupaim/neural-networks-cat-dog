@@ -1,6 +1,6 @@
 # Machine learning to differentiate dog and cat
 
-# Explicação (pt-br)
+## Explicação (pt-br)
 
 A escolha do problema, foi decorrente de uma estratégia para simplificar o meu aprendizado sobre a aplicação de modelos de aprendizagem, com o objetivo de chegar a um problema com uma complexidade maior (identificar o uso de EPI). E por isso, foi decidido experimentar o aprendizado de máquina com um problema parecido e de complexidade menor. Então o objetivo deste trabalho é construir um modelo de rede neural capaz de diferenciar cachorro e gato.
 
