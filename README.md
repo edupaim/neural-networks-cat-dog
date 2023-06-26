@@ -7,6 +7,9 @@ de aprendizagem, com o objetivo de chegar a um problema com uma complexidade mai
 isso, foi decidido experimentar o aprendizado de máquina com um problema parecido e de complexidade menor. Então o objetivo
 deste trabalho é construir um modelo de rede neural capaz de diferenciar cachorro e gato.
 
+O dataset escolhi para a aprendizagem foi o [Cats_Vs_Dogs](https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip).
+Esse dataset é dividido em uma coleção de 2000 imagens para treino e 1000 imagens para validação.
+
 Para o pré-processamento dos dados, foi utilizada a biblioteca Keras para carregar e redimensionar as imagens. 
 Para determinar o melhor parâmetro para o redimensionamento das imagens foi feita uma análise estatística básica no 
 conjunto de dados de imagens.
