@@ -63,13 +63,92 @@ model_cnn2 = keras.Sequential([
 ])
 ```
 
+### Training history
+
+| Model          |           Accuracy           |             Loss              |
+|----------------|:----------------------------:|:-----------------------------:|
+| MLP            |   ![](results/mlp-acc.png)   |   ![](results/mlp-loss.png)   |
+| CNN            |   ![](results/cnn-acc.png)   |   ![](results/cnn-loss.png)   |
+| CNN2           |  ![](results/cnn2-acc.png)   |  ![](results/cnn2-loss.png)   |
+| CNN2 (DROPOUT) | ![](results/cnn2_dp-acc.png) | ![](results/cnn2_dp-loss.png) |
+
 ### Results
 
-| Model |         Accuracy          |            Loss            |
-|-------|:-------------------------:|:--------------------------:|
-| MLP   | ![](results/mlp-acc.png)  | ![](results/mlp-loss.png)  |
-| CNN   | ![](results/cnn-acc.png)  | ![](results/cnn-loss.png)  |
-| CNN2  | ![](results/cnn2-acc.png) | ![](results/cnn2-loss.png) |
+#### MLP
+```
+Test Accuracy: 0.5820000171661377
+Test Loss: 0.74488365650177
+```
+
+![](mlp-cfmatrix.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.50      0.63      0.55       500
+         DOG       0.49      0.36      0.41       500
+
+    accuracy                           0.49      1000
+   macro avg       0.49      0.49      0.48      1000
+weighted avg       0.49      0.49      0.48      1000
+```
+
+#### CNN
+```
+Test Accuracy: 0.718999981880188
+Test Loss: 1.1275080442428589
+```
+
+![](results/cnn-cfmatrix.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.49      0.50      0.49       500
+         DOG       0.49      0.49      0.49       500
+
+    accuracy                           0.49      1000
+   macro avg       0.49      0.49      0.49      1000
+weighted avg       0.49      0.49      0.49      1000
+```
+
+#### CNN2
+```
+Test Accuracy: 0.7120000123977661
+Test Loss: 1.5042719841003418
+```
+
+![](results/cnn2-cfmatrix.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.52      0.53      0.53       500
+         DOG       0.52      0.52      0.52       500
+
+    accuracy                           0.52      1000
+   macro avg       0.52      0.52      0.52      1000
+weighted avg       0.52      0.52      0.52      1000
+```
+
+#### CNN2 with Dropout
+```
+Test Accuracy: 0.7490000128746033
+Test Loss: 0.7401270866394043
+```
+
+![](results/cnn2_dp-cfmatrix.png)
+
+```
+              precision    recall  f1-score   support
+
+         CAT       0.51      0.63      0.56       500
+         DOG       0.51      0.39      0.44       500
+
+    accuracy                           0.51      1000
+   macro avg       0.51      0.51      0.50      1000
+weighted avg       0.51      0.51      0.50      1000
+```
 
 ## Data Augmentation
 
@@ -88,7 +167,7 @@ This function is called, passing some parameters to data augmentation as:
     fill_mode='nearest'
 ```
 
-### Results with Data Augmentation
+### Training history with Data Augmentation
 
 | Model          |               Accuracy               |                 Loss                  | 
 |----------------|:------------------------------------:|:-------------------------------------:|
