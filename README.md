@@ -4,10 +4,11 @@
 
 ## Explicação (pt-br)
 
-A escolha do problema, foi decorrente de uma estratégia para simplificar o meu aprendizado sobre a aplicação de modelos
-de aprendizagem, com o objetivo de chegar a um problema com uma complexidade maior (identificar o uso de EPI). E por
-isso, foi decidido experimentar o aprendizado de máquina com um problema parecido e de complexidade menor. Então o
-objetivo deste trabalho é construir um modelo de rede neural capaz de diferenciar cachorro e gato.
+A motivação para a escolha do problema em minha pesquisa foi buscar uma estratégia para facilitar meu aprendizado sobre
+Machine Learning. Meu objetivo era avançar para problemas mais complexos, como a identificação do uso de EPI 
+(Equipamento de Proteção Individual). Para alcançar esse objetivo, decidi experimentar o aprendizado de máquina com um
+problema semelhante, mas de complexidade menor. Assim, o objetivo deste trabalho é construir um modelo de rede neural
+que possa distinguir entre cachorros e gatos.
 
 O dataset escolhido para a aprendizagem foi
 o [Cats_Vs_Dogs](https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip). Esse dataset é dividido em
