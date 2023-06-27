@@ -228,8 +228,8 @@ weighted avg       0.49      0.49      0.49      1000
 #### CNN2
 
 ```
-Test Accuracy: 0.7120000123977661
-Test Loss: 1.5042719841003418
+Test Accuracy: 0.7580000162124634
+Test Loss: 0.8685814142227173
 ```
 
 ![](results/cnn2-cfmatrix.png)
@@ -237,12 +237,12 @@ Test Loss: 1.5042719841003418
 ```
               precision    recall  f1-score   support
 
-         CAT       0.52      0.53      0.53       500
-         DOG       0.52      0.52      0.52       500
+         CAT       0.53      0.53      0.53       500
+         DOG       0.53      0.52      0.52       500
 
-    accuracy                           0.52      1000
-   macro avg       0.52      0.52      0.52      1000
-weighted avg       0.52      0.52      0.52      1000
+    accuracy                           0.53      1000
+   macro avg       0.53      0.53      0.53      1000
+weighted avg       0.53      0.53      0.53      1000
 ```
 
 #### CNN2 with Dropout
@@ -336,21 +336,21 @@ weighted avg       0.49      0.49      0.49      1000
 #### CNN2-DATAAUG
 
 ```
-Test Accuracy: 0.7559999823570251
-Test Loss: 0.49308863282203674
+Test Accuracy: 0.7829999923706055
+Test Loss: 0.4312402009963989
 ```
 
-![](results/cnn2-cfmatrix-dataaug.png)
+![](cnn2-cfmatrix-dataaug.png)
 
 ```
               precision    recall  f1-score   support
 
-         CAT       0.48      0.48      0.48       500
-         DOG       0.48      0.48      0.48       500
+         CAT       0.53      0.58      0.55       500
+         DOG       0.54      0.49      0.51       500
 
-    accuracy                           0.48      1000
-   macro avg       0.48      0.48      0.48      1000
-weighted avg       0.48      0.48      0.48      1000
+    accuracy                           0.53      1000
+   macro avg       0.53      0.53      0.53      1000
+weighted avg       0.53      0.53      0.53      1000
 ```
 
 #### CNN2_DP-DATAAUG

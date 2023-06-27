@@ -1,8 +1,8 @@
 ## CNN2
 
 ```
-Test Accuracy: 0.7120000123977661
-Test Loss: 1.5042719841003418
+Test Accuracy: 0.7580000162124634
+Test Loss: 0.8685814142227173
 ```
 
 ![](cnn2-cfmatrix.png)
@@ -10,12 +10,12 @@ Test Loss: 1.5042719841003418
 ```
               precision    recall  f1-score   support
 
-         CAT       0.52      0.53      0.53       500
-         DOG       0.52      0.52      0.52       500
+         CAT       0.53      0.53      0.53       500
+         DOG       0.53      0.52      0.52       500
 
-    accuracy                           0.52      1000
-   macro avg       0.52      0.52      0.52      1000
-weighted avg       0.52      0.52      0.52      1000
+    accuracy                           0.53      1000
+   macro avg       0.53      0.53      0.53      1000
+weighted avg       0.53      0.53      0.53      1000
 ```
 
 ![](cnn2-acc.png)

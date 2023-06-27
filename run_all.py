@@ -68,21 +68,51 @@ for with_data_augmentation in data_aug_train:
             batch_size=batch_size,
             shuffle=True,
             class_mode='binary')
-
-        # %%
+        #%%
         # Iniciar, construir e treinar o modelo
-        early_stop = EarlyStopping(
-            patience=10,
-            verbose=1,
-        )
-        learning_rate_reduction = ReduceLROnPlateau(
-            monitor='val_accuracy',
-            patience=2,
-            verbose=1,
-            factor=0.5,
-            min_lr=0.00001
-        )
-        callbacks = [early_stop, learning_rate_reduction]
+
+        # MLP
+        model_mlp = keras.Sequential([
+            keras.layers.Flatten(input_shape=(img_size, img_size, 3)),
+            keras.layers.Dense(512, activation='relu'),
+            keras.layers.Dense(1, activation='sigmoid')
+        ])
+
+        # CNN
+        model_cnn = keras.Sequential([
+            keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(img_size, img_size, 3)),
+            keras.layers.MaxPool2D((2, 2)),
+
+            keras.layers.Conv2D(32, (3, 3), activation='relu'),
+            keras.layers.MaxPool2D((2, 2)),
+
+            keras.layers.Conv2D(64, (3, 3), activation='relu'),
+            keras.layers.MaxPool2D((2, 2)),
+
+            keras.layers.Flatten(),
+            keras.layers.Dense(512, activation='relu'),
+            keras.layers.Dense(1, activation='sigmoid')
+        ])
+
+        # CNN2
+        model_cnn2 = keras.Sequential([
+            keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(img_size, img_size, 3)),
+            keras.layers.BatchNormalization(),
+            keras.layers.MaxPool2D((2, 2)),
+
+            keras.layers.Conv2D(32, (3, 3), activation='relu'),
+            keras.layers.BatchNormalization(),
+            keras.layers.MaxPool2D((2, 2)),
+
+            keras.layers.Conv2D(64, (3, 3), activation='relu'),
+            keras.layers.BatchNormalization(),
+            keras.layers.MaxPool2D((2, 2)),
+
+            keras.layers.Flatten(),
+            keras.layers.Dense(512, activation='relu'),
+            keras.layers.BatchNormalization(),
+            keras.layers.Dense(1, activation='sigmoid')
+        ])
 
         # CNN2_DPOT
         model_cnn2_dpout = keras.Sequential([
@@ -108,62 +138,33 @@ for with_data_augmentation in data_aug_train:
             keras.layers.Dense(1, activation='sigmoid')
         ])
 
-        # CNN2
-        model_cnn2 = keras.Sequential([
-            keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(img_size, img_size, 3)),
-            keras.layers.BatchNormalization(),
-            keras.layers.MaxPool2D((2, 2)),
-
-            keras.layers.Conv2D(32, (3, 3), activation='relu'),
-            keras.layers.BatchNormalization(),
-            keras.layers.MaxPool2D((2, 2)),
-
-            keras.layers.Conv2D(64, (3, 3), activation='relu'),
-            keras.layers.BatchNormalization(),
-            keras.layers.MaxPool2D((2, 2)),
-
-            keras.layers.Flatten(),
-            keras.layers.Dense(512, activation='relu'),
-            keras.layers.BatchNormalization(),
-            keras.layers.Dense(1, activation='sigmoid')
-        ])
-
-        # CNN
-        model_cnn = keras.Sequential([
-            keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(img_size, img_size, 3)),
-            keras.layers.MaxPool2D((2, 2)),
-
-            keras.layers.Conv2D(32, (3, 3), activation='relu'),
-            keras.layers.MaxPool2D((2, 2)),
-
-            keras.layers.Conv2D(64, (3, 3), activation='relu'),
-            keras.layers.MaxPool2D((2, 2)),
-
-            keras.layers.Flatten(),
-            keras.layers.Dense(512, activation='relu'),
-            keras.layers.Dense(1, activation='sigmoid')
-        ])
-
-        # MLP
-        model_mlp = keras.Sequential([
-            keras.layers.Flatten(input_shape=(img_size, img_size, 3)),
-            keras.layers.Dense(512, activation='relu'),
-            keras.layers.Dense(1, activation='sigmoid')
-        ])
-
         if model_name == "mlp":
             model = model_mlp
         elif model_name == "cnn":
             model = model_cnn
         elif model_name == "cnn2":
-            model = model_cnn
+            model = model_cnn2
         elif model_name == "cnn2_dp":
             model = model_cnn2_dpout
         else:
             print("unknown model name")
             sys.exit()
+
         model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
         model.summary()
+
+        early_stop = EarlyStopping(
+            patience=10,
+            verbose=1,
+        )
+        learning_rate_reduction = ReduceLROnPlateau(
+            monitor='val_accuracy',
+            patience=2,
+            verbose=1,
+            factor=0.5,
+            min_lr=0.00001
+        )
+        callbacks = [early_stop, learning_rate_reduction]
 
         history = model.fit(train_iterator,
                             validation_data=validation_iterator,
@@ -172,38 +173,12 @@ for with_data_augmentation in data_aug_train:
                             validation_steps=validation_iterator.n // batch_size,
                             callbacks=callbacks
                             )
-        # %%
-        # Avaliar o modelo
-        test_loss, test_acc = model.evaluate(validation_iterator, steps=validation_iterator.n // batch_size)
-        print('Test Loss:', test_loss)
-        print('Test Accuracy:', test_acc)
-        # %%
-        predictions = (model.predict(validation_iterator) >= 0.5).astype(int)
-        # %%
-        cm = confusion_matrix(validation_iterator.labels, predictions, labels=[0, 1])
-        clr = classification_report(validation_iterator.labels, predictions, labels=[0, 1], target_names=["CAT", "DOG"])
-
+        #%%
         results_folder = './results/'
         file_name_base = model_name
+        #%%
+        # Construir gráficos de treinamento
 
-        plt.figure(figsize=(6, 6))
-        sns.heatmap(cm, annot=True, fmt='g', vmin=0, cmap='Blues', cbar=False)
-        plt.xticks(ticks=[0.5, 1.5], labels=["CAT", "DOG"])
-        plt.yticks(ticks=[0.5, 1.5], labels=["CAT", "DOG"])
-        plt.xlabel("Predicted")
-        plt.ylabel("Actual")
-        plt.title("Confusion Matrix")
-        metric = '-cfmatrix'
-        name_file = file_name_base + metric
-        if with_data_augmentation:
-            name_file += '-dataaug'
-        name_file = name_file + '.png'
-        matrix_file_name = name_file
-        plt.savefig(results_folder + matrix_file_name)
-        plt.show()
-
-        print("Classification Report:\n----------------------\n", clr)
-        # %%
         acc = history.history['accuracy']
         val_acc = history.history['val_accuracy']
         y_len = range(len(acc))
@@ -254,8 +229,35 @@ for with_data_augmentation in data_aug_train:
         acc_vs_loss_file_name += '.png'
         plt.savefig(results_folder + acc_vs_loss_file_name)
         plt.show()
-        # %%
-        # Append-adds at last
+        #%%
+        # Avaliar o modelo
+        test_loss, test_acc = model.evaluate(validation_iterator, steps=validation_iterator.n // batch_size)
+        print('Test Loss:', test_loss)
+        print('Test Accuracy:', test_acc)
+        predictions = (model.predict(validation_iterator) >= 0.5).astype(int)
+        cm = confusion_matrix(validation_iterator.labels, predictions, labels=[0, 1])
+        clr = classification_report(validation_iterator.labels, predictions, labels=[0, 1], target_names=["CAT", "DOG"])
+
+        file_name_base = model_name
+
+        plt.figure(figsize=(6, 6))
+        sns.heatmap(cm, annot=True, fmt='g', vmin=0, cmap='Blues', cbar=False)
+        plt.xticks(ticks=[0.5, 1.5], labels=["CAT", "DOG"])
+        plt.yticks(ticks=[0.5, 1.5], labels=["CAT", "DOG"])
+        plt.xlabel("Predicted")
+        plt.ylabel("Actual")
+        plt.title("Confusion Matrix")
+        metric = '-cfmatrix'
+        name_file = file_name_base + metric
+        if with_data_augmentation:
+            name_file += '-dataaug'
+        name_file = name_file + '.png'
+        matrix_file_name = name_file
+        plt.savefig(results_folder + matrix_file_name)
+        plt.show()
+
+        print("Classification Report:\n----------------------\n", clr)
+        #%%
         model_def = model_name.upper()
         if with_data_augmentation:
             model_def += "-DATAAUG"
