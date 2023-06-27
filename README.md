@@ -340,7 +340,7 @@ Test Accuracy: 0.7829999923706055
 Test Loss: 0.4312402009963989
 ```
 
-![](cnn2-cfmatrix-dataaug.png)
+![](results/cnn2-cfmatrix-dataaug.png)
 
 ```
               precision    recall  f1-score   support
